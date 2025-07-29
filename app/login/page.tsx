@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -18,7 +17,6 @@ export default function LoginPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault()
-    // Simulate login - in real app, this would authenticate with backend
     if (email && password) {
       window.location.href = "/dashboard"
     }
@@ -27,14 +25,14 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        <div className="mb-8">
+        <div className="mb-8 text-center sm:text-left">
           <Link href="/" className="inline-flex items-center text-pink-600 hover:text-pink-700 transition-colors">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Home
           </Link>
         </div>
 
-        <Card className="border-pink-100">
+        <Card className="border-pink-100 shadow-lg">
           <CardHeader className="text-center">
             <div className="w-12 h-12 bg-gradient-to-r from-pink-500 to-purple-600 rounded-lg flex items-center justify-center mx-auto mb-4">
               <span className="text-white font-bold text-lg">DB</span>
@@ -42,12 +40,12 @@ export default function LoginPage() {
             <CardTitle className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
               Welcome Back
             </CardTitle>
-            <CardDescription>Sign in to your Dynamic Buzz account</CardDescription>
+            <CardDescription>Sign in to your Dashboard Buzz account</CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleLogin} className="space-y-4">
+            <form onSubmit={handleLogin} className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email" className="mb-2 inline-block">Email</Label>
                 <Input
                   id="email"
                   type="email"
@@ -55,12 +53,12 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="border-pink-200 focus:border-pink-400"
+                  className="border-gray-300 focus:border-pink-400 focus:ring-pink-400"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password" className="mb-2 inline-block">Password</Label>
                 <div className="relative">
                   <Input
                     id="password"
@@ -69,7 +67,7 @@ export default function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="border-pink-200 focus:border-pink-400 pr-10"
+                    className="border-gray-300 focus:border-pink-400 focus:ring-pink-400 pr-10"
                   />
                   <Button
                     type="button"
@@ -87,21 +85,21 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-center space-x-2">
                   <Checkbox id="remember" />
-                  <Label htmlFor="remember" className="text-sm text-gray-600">
+                  <Label htmlFor="remember" className="text-sm font-normal text-gray-600">
                     Remember me
                   </Label>
                 </div>
-                <Link href="#" className="text-sm text-pink-600 hover:text-pink-700">
+                <Link href="#" className="text-sm text-pink-600 hover:text-pink-700 font-medium">
                   Forgot password?
                 </Link>
               </div>
 
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700"
+                className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-base"
               >
                 Sign In
               </Button>
