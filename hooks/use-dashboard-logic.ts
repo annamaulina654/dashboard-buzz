@@ -121,7 +121,7 @@ export function useDashboardLogic({
       const conversions = (reach * conversionRate) / 100;
       const revenue = conversions * 50;
       const roi = ((revenue - budget) / budget) * 100;
-      setRoiCalculation((prev) => ({ ...prev, result: roi }));
+      setRoiCalculation((prev: any) => ({ ...prev, result: roi }));
     }
   };
 

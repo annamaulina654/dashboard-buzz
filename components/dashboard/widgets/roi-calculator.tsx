@@ -53,7 +53,7 @@ export function ROICalculator({
               placeholder="10000"
               value={roiCalculation.budget || ""}
               onChange={(e) =>
-                setRoiCalculation((prev) => ({
+                setRoiCalculation((prev: any) => ({
                   ...prev,
                   budget: Number(e.target.value),
                 }))
@@ -74,7 +74,7 @@ export function ROICalculator({
               placeholder="100000"
               value={roiCalculation.reach || ""}
               onChange={(e) =>
-                setRoiCalculation((prev) => ({
+                setRoiCalculation((prev: any) => ({
                   ...prev,
                   reach: Number(e.target.value),
                 }))
@@ -96,7 +96,7 @@ export function ROICalculator({
               placeholder="2.5"
               value={roiCalculation.conversionRate || ""}
               onChange={(e) =>
-                setRoiCalculation((prev) => ({
+                setRoiCalculation((prev: any) => ({
                   ...prev,
                   conversionRate: Number(e.target.value),
                 }))
