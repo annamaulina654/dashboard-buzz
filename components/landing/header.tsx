@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { X, Menu } from "lucide-react"
+import { useState } from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { X, Menu } from "lucide-react";
 
 export function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
     { href: "#features", label: "Features" },
     { href: "#about", label: "About" },
     { href: "#contact", label: "Contact" },
-  ]
+  ];
 
   return (
     <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
@@ -27,14 +27,26 @@ export function Header() {
         </div>
 
         <div className="md:hidden">
-          <Button onClick={() => setIsMenuOpen(!isMenuOpen)} variant="ghost" size="sm">
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          <Button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            variant="ghost"
+            size="sm"
+          >
+            {isMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
           </Button>
         </div>
 
         <nav className="hidden md:flex items-center space-x-6">
-          {navLinks.map(link => (
-            <Link key={link.href} href={link.href} className="text-gray-600 hover:text-pink-600 transition-colors">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-gray-600 hover:text-pink-600 transition-colors"
+            >
               {link.label}
             </Link>
           ))}
@@ -42,7 +54,10 @@ export function Header() {
 
         <div className="hidden md:flex items-center space-x-3">
           <Link href="/login">
-            <Button variant="ghost" className="text-pink-600 hover:text-pink-700">
+            <Button
+              variant="ghost"
+              className="text-pink-600 hover:text-pink-700"
+            >
               Login
             </Button>
           </Link>
@@ -56,7 +71,7 @@ export function Header() {
       {isMenuOpen && (
         <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-md">
           <nav className="flex flex-col items-center space-y-4 py-6">
-            {navLinks.map(link => (
+            {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -67,16 +82,23 @@ export function Header() {
               </Link>
             ))}
             <div className="flex flex-col gap-4 w-full px-8 pt-4">
-               <Link href="/login">
-                 <Button variant="ghost" className="w-full text-pink-600 hover:text-pink-700">Login</Button>
-               </Link>
-               <Link href="/register">
-                 <Button className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700">Get Started</Button>
-               </Link>
+              <Link href="/login">
+                <Button
+                  variant="ghost"
+                  className="w-full text-pink-600 hover:text-pink-700"
+                >
+                  Login
+                </Button>
+              </Link>
+              <Link href="/register">
+                <Button className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700">
+                  Get Started
+                </Button>
+              </Link>
             </div>
           </nav>
         </div>
       )}
     </header>
-  )
+  );
 }

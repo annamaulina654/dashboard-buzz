@@ -1,5 +1,17 @@
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Users, Target, MessageSquare, BarChart3, Shield, Zap } from "lucide-react"
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Users,
+  Target,
+  MessageSquare,
+  BarChart3,
+  Shield,
+  Zap,
+} from "lucide-react";
 
 const features = [
   {
@@ -19,7 +31,8 @@ const features = [
   {
     icon: MessageSquare,
     title: "Automated Chatbot",
-    description: "Send automated timeline reminders and project updates to KOLs, reducing manual work and human error.",
+    description:
+      "Send automated timeline reminders and project updates to KOLs, reducing manual work and human error.",
     color: "pink",
   },
   {
@@ -32,16 +45,18 @@ const features = [
   {
     icon: Shield,
     title: "Follower Verification",
-    description: "Verify authentic followers and detect fake engagement to ensure your campaigns reach real audiences.",
+    description:
+      "Verify authentic followers and detect fake engagement to ensure your campaigns reach real audiences.",
     color: "pink",
   },
   {
     icon: Zap,
     title: "Real-time Analytics",
-    description: "Monitor campaign performance in real-time with detailed analytics and actionable insights.",
+    description:
+      "Monitor campaign performance in real-time with detailed analytics and actionable insights.",
     color: "purple",
   },
-]
+];
 
 export function FeaturesSection() {
   const colorClasses = {
@@ -57,39 +72,47 @@ export function FeaturesSection() {
       text: "text-purple-600",
       title: "text-purple-900",
     },
-  }
-  
+  };
+
   return (
     <section id="features" className="py-20 px-4 bg-white">
       <div className="container mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4 text-gray-900">Powerful Features for Modern Marketing</h2>
+          <h2 className="text-4xl font-bold mb-4 text-gray-900">
+            Powerful Features for Modern Marketing
+          </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Everything you need to manage your KOL campaigns efficiently and maximize your ROI
+            Everything you need to manage your KOL campaigns efficiently and
+            maximize your ROI
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {features.map((feature, index) => {
-            const colors = colorClasses[feature.color as keyof typeof colorClasses]
-            
+            const colors =
+              colorClasses[feature.color as keyof typeof colorClasses];
+
             return (
               <Card
                 key={index}
                 className={`${colors.border} transition-colors`}
               >
                 <CardHeader>
-                  <div className={`w-12 h-12 ${colors.bg} rounded-lg flex items-center justify-center mb-4`}>
+                  <div
+                    className={`w-12 h-12 ${colors.bg} rounded-lg flex items-center justify-center mb-4`}
+                  >
                     <feature.icon className={`h-6 w-6 ${colors.text}`} />
                   </div>
-                  <CardTitle className={colors.title}>{feature.title}</CardTitle>
+                  <CardTitle className={colors.title}>
+                    {feature.title}
+                  </CardTitle>
                   <CardDescription>{feature.description}</CardDescription>
                 </CardHeader>
               </Card>
-            )
+            );
           })}
         </div>
       </div>
     </section>
-  )
+  );
 }

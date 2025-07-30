@@ -122,7 +122,6 @@
 }
 
 @layer utilities {
-  /* Mobile-first responsive text sizes */
   .text-responsive-xs {
     @apply text-xs sm:text-sm;
   }
@@ -151,7 +150,6 @@
     @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl;
   }
 
-  /* Responsive spacing utilities */
   .space-responsive-x {
     @apply space-x-2 sm:space-x-3 md:space-x-4;
   }
@@ -176,7 +174,6 @@
     @apply py-3 sm:py-4 md:py-6;
   }
 
-  /* Responsive grid utilities */
   .grid-responsive-2 {
     @apply grid-cols-1 sm:grid-cols-2;
   }
@@ -189,7 +186,6 @@
     @apply grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4;
   }
 
-  /* Mobile-specific utilities */
   .mobile-stack {
     @apply flex-col sm:flex-row;
   }
@@ -202,7 +198,6 @@
     @apply w-full sm:w-auto;
   }
 
-  /* Touch-friendly sizing */
   .touch-target {
     @apply min-h-[44px] min-w-[44px];
   }
@@ -211,12 +206,10 @@
     @apply px-4 py-3 sm:px-3 sm:py-2;
   }
 
-  /* Responsive containers */
   .container-responsive {
     @apply container mx-auto px-4 sm:px-6 lg:px-8;
   }
 
-  /* Responsive flex utilities */
   .flex-responsive {
     @apply flex-col sm:flex-row;
   }
@@ -229,7 +222,6 @@
     @apply justify-center sm:justify-between;
   }
 
-  /* Responsive visibility */
   .mobile-only {
     @apply block sm:hidden;
   }
@@ -242,23 +234,19 @@
     @apply hidden md:block;
   }
 
-  /* Responsive card layouts */
   .card-responsive {
     @apply p-4 sm:p-6 rounded-lg sm:rounded-xl;
   }
 
-  /* Responsive form elements */
   .input-responsive {
-    @apply text-base sm:text-sm; /* Prevents zoom on iOS */
+    @apply text-base sm:text-sm; 
   }
 
-  /* Responsive navigation */
   .nav-responsive {
     @apply flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4;
   }
 }
 
-/* Custom scrollbar for better mobile experience */
 @layer utilities {
   .scrollbar-thin {
     scrollbar-width: thin;
@@ -284,21 +272,18 @@
   }
 }
 
-/* Responsive animations */
 @media (prefers-reduced-motion: no-preference) {
   .animate-responsive {
     @apply transition-all duration-200 ease-in-out;
   }
 }
 
-/* High contrast mode support */
 @media (prefers-contrast: high) {
   .high-contrast {
     @apply border-2 border-black dark:border-white;
   }
 }
 
-/* Print styles */
 @media print {
   .no-print {
     @apply hidden;
@@ -309,10 +294,17 @@
   }
 }
 
-/* Focus styles for better accessibility */
 @layer utilities {
   .focus-visible-ring {
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-2;
   }
 }
 
+input[type="password"]::-webkit-password-reveal-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="password"]::-ms-reveal {
+  display: none;
+}

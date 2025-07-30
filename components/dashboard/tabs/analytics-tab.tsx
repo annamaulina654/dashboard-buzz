@@ -1,20 +1,22 @@
-"use client"
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
 
-import { ROICalculator } from "../widgets/roi-calculator"
-import { PerformanceMetrics } from "../widgets/performance-metrics"
-import { CampaignComparison } from "../widgets/campaign-comparison"
-import type { Campaign } from "@/types/dashboard"
+import { ROICalculator } from "../widgets/roi-calculator";
+import { PerformanceMetrics } from "../widgets/performance-metrics";
+import { CampaignComparison } from "../widgets/campaign-comparison";
+import type { Campaign } from "@/types/dashboard";
 
 interface AnalyticsTabProps {
   roiCalculation: {
-    budget: number
-    reach: number
-    conversionRate: number
-    result: number
-  }
-  setRoiCalculation: (calculation: any) => void
-  calculateROI: () => void
-  optimisticCampaigns: Campaign[]
+    budget: number;
+    reach: number;
+    conversionRate: number;
+    result: number;
+  };
+  setRoiCalculation: (calculation: any) => void;
+  calculateROI: () => void;
+  optimisticCampaigns: Campaign[];
+  isLoading: boolean;
 }
 
 export function AnalyticsTab({
@@ -22,6 +24,7 @@ export function AnalyticsTab({
   setRoiCalculation,
   calculateROI,
   optimisticCampaigns,
+  isLoading,
 }: AnalyticsTabProps) {
   return (
     <div className="space-y-4 md:space-y-6">
@@ -31,10 +34,16 @@ export function AnalyticsTab({
           setRoiCalculation={setRoiCalculation}
           calculateROI={calculateROI}
         />
-        <PerformanceMetrics />
+        <PerformanceMetrics
+          campaigns={optimisticCampaigns}
+          isLoading={isLoading}
+        />
       </div>
 
-      <CampaignComparison campaigns={optimisticCampaigns} />
+      <CampaignComparison
+        campaigns={optimisticCampaigns}
+        isLoading={isLoading}
+      />
     </div>
-  )
+  );
 }

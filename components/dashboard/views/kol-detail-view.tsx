@@ -1,35 +1,46 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Textarea } from "@/components/ui/textarea"
-import { Send } from "lucide-react"
-import type { KOL, ChatbotMessage } from "@/types/dashboard"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
+import { Send } from "lucide-react";
+import type { KOL, ChatbotMessage } from "@/types/dashboard";
 
 interface KOLDetailViewProps {
-  kol: KOL | null
-  onSendMessage: (kolId: number, message: string, type: ChatbotMessage["type"]) => Promise<void>
+  kol: KOL | null;
+  onSendMessage: (
+    kolId: number,
+    message: string,
+    type: ChatbotMessage["type"]
+  ) => Promise<void>;
 }
 
 export function KOLDetailView({ kol, onSendMessage }: KOLDetailViewProps) {
-  const [message, setMessage] = useState("")
-  const [messageType, setMessageType] = useState<ChatbotMessage["type"]>("reminder")
-  const [isSending, setIsSending] = useState(false)
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] =
+    useState<ChatbotMessage["type"]>("reminder");
+  const [isSending, setIsSending] = useState(false);
 
-  if (!kol) return null
+  if (!kol) return null;
 
   const handleSendMessage = async () => {
     if (message.trim()) {
-      setIsSending(true)
-      await onSendMessage(kol.id, message, messageType)
-      setMessage("")
-      setIsSending(false)
+      setIsSending(true);
+      await onSendMessage(kol.id, message, messageType);
+      setMessage("");
+      setIsSending(false);
     }
-  }
+  };
 
   return (
     <div className="space-y-6 p-1 sm:p-0">
@@ -38,12 +49,19 @@ export function KOLDetailView({ kol, onSendMessage }: KOLDetailViewProps) {
           <Avatar className="h-12 w-12">
             <AvatarImage src={kol.avatar || "/placeholder.svg"} />
             <AvatarFallback className="dark:bg-gray-600 dark:text-white">
-              {kol.name.split(" ").map((n) => n[0]).join("")}
+              {kol.name
+                .split(" ")
+                .map((n) => n[0])
+                .join("")}
             </AvatarFallback>
           </Avatar>
           <div>
-            <h2 className="text-lg sm:text-xl font-bold dark:text-white">{kol.name}</h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400">{kol.username}</p>
+            <h2 className="text-lg sm:text-xl font-bold dark:text-white">
+              {kol.name}
+            </h2>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              {kol.username}
+            </p>
           </div>
         </DialogTitle>
       </DialogHeader>
@@ -51,7 +69,9 @@ export function KOLDetailView({ kol, onSendMessage }: KOLDetailViewProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-4">
           <div>
-            <h3 className="font-semibold mb-2 dark:text-white">Contact Information</h3>
+            <h3 className="font-semibold mb-2 dark:text-white">
+              Contact Information
+            </h3>
             <div className="space-y-2 text-sm break-words">
               <p className="dark:text-gray-300">
                 <strong>Email:</strong> {kol.email}
@@ -68,7 +88,11 @@ export function KOLDetailView({ kol, onSendMessage }: KOLDetailViewProps) {
             <h3 className="font-semibold mb-2 dark:text-white">Platforms</h3>
             <div className="flex flex-wrap gap-2">
               {kol.platforms.map((platform) => (
-                <Badge key={platform} variant="outline" className="dark:border-gray-600 dark:text-gray-300">
+                <Badge
+                  key={platform}
+                  variant="outline"
+                  className="dark:border-gray-600 dark:text-gray-300"
+                >
                   {platform}
                 </Badge>
               ))}
@@ -81,7 +105,8 @@ export function KOLDetailView({ kol, onSendMessage }: KOLDetailViewProps) {
             <h3 className="font-semibold mb-2 dark:text-white">Statistics</h3>
             <div className="space-y-2 text-sm">
               <p className="dark:text-gray-300">
-                <strong>Followers:</strong> {kol.followers} ({kol.followersCount.toLocaleString()})
+                <strong>Followers:</strong> {kol.followers} (
+                {kol.followersCount.toLocaleString()})
               </p>
               <p className="dark:text-gray-300">
                 <strong>Engagement:</strong> {kol.engagement}
@@ -119,7 +144,12 @@ export function KOLDetailView({ kol, onSendMessage }: KOLDetailViewProps) {
             className="dark:bg-gray-700 dark:border-gray-600 dark:text-white"
           />
           <div className="flex flex-col sm:flex-row gap-3">
-            <Select value={messageType} onValueChange={(value: ChatbotMessage["type"]) => setMessageType(value)}>
+            <Select
+              value={messageType}
+              onValueChange={(value: ChatbotMessage["type"]) =>
+                setMessageType(value)
+              }
+            >
               <SelectTrigger className="dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                 <SelectValue />
               </SelectTrigger>
@@ -141,5 +171,5 @@ export function KOLDetailView({ kol, onSendMessage }: KOLDetailViewProps) {
         </div>
       </div>
     </div>
-  )
+  );
 }

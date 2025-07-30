@@ -1,175 +1,40 @@
-import type { KOL, Campaign, ChatbotMessage } from "@/types/dashboard"
+import { supabaseClient } from "./supabase-client";
+import type { KOL, Campaign, ChatbotMessage } from "@/types/dashboard";
 
 export async function initializeData() {
-  const initialKOLs: KOL[] = [
-    {
-      id: 1,
-      name: "Sarah Johnson",
-      username: "@sarahjohnson",
-      followers: "125K",
-      followersCount: 125000,
-      engagement: "4.2%",
-      engagementRate: 4.2,
-      category: "Lifestyle",
-      verified: true,
-      avatar: "/placeholder.svg?height=40&width=40",
-      email: "sarah@example.com",
-      phone: "+1234567890",
-      rate: 500,
-      location: "Jakarta, Indonesia",
-      bio: "Lifestyle influencer passionate about sustainable living and wellness.",
-      platforms: ["Instagram", "TikTok", "YouTube"],
-    },
-    {
-      id: 2,
-      name: "Mike Chen",
-      username: "@mikechen",
-      followers: "89K",
-      followersCount: 89000,
-      engagement: "3.8%",
-      engagementRate: 3.8,
-      category: "Tech",
-      verified: false,
-      avatar: "/placeholder.svg?height=40&width=40",
-      email: "mike@example.com",
-      phone: "+1234567891",
-      rate: 350,
-      location: "Bandung, Indonesia",
-      bio: "Tech reviewer and gadget enthusiast. Always exploring the latest innovations.",
-      platforms: ["Instagram", "YouTube", "Twitter"],
-    },
-    {
-      id: 3,
-      name: "Emma Wilson",
-      username: "@emmawilson",
-      followers: "156K",
-      followersCount: 156000,
-      engagement: "5.1%",
-      engagementRate: 5.1,
-      category: "Fashion",
-      verified: true,
-      avatar: "/placeholder.svg?height=40&width=40",
-      email: "emma@example.com",
-      phone: "+1234567892",
-      rate: 750,
-      location: "Surabaya, Indonesia",
-      bio: "Fashion designer and style consultant. Helping people express themselves through fashion.",
-      platforms: ["Instagram", "TikTok", "Pinterest"],
-    },
-    {
-      id: 4,
-      name: "David Rodriguez",
-      username: "@davidfitness",
-      followers: "203K",
-      followersCount: 203000,
-      engagement: "6.3%",
-      engagementRate: 6.3,
-      category: "Fitness",
-      verified: true,
-      avatar: "/placeholder.svg?height=40&width=40",
-      email: "david@example.com",
-      phone: "+1234567893",
-      rate: 600,
-      location: "Bali, Indonesia",
-      bio: "Certified personal trainer and nutrition coach. Transforming lives through fitness.",
-      platforms: ["Instagram", "YouTube", "TikTok"],
-    },
-    {
-      id: 5,
-      name: "Lisa Park",
-      username: "@lisacooks",
-      followers: "78K",
-      followersCount: 78000,
-      engagement: "4.7%",
-      engagementRate: 4.7,
-      category: "Food",
-      verified: false,
-      avatar: "/placeholder.svg?height=40&width=40",
-      email: "lisa@example.com",
-      phone: "+1234567894",
-      rate: 400,
-      location: "Yogyakarta, Indonesia",
-      bio: "Home chef sharing easy and delicious recipes for busy families.",
-      platforms: ["Instagram", "TikTok", "YouTube"],
-    },
-  ]
+  const { data: initialKOLs, error: kolsError } = await supabaseClient
+    .from("kols")
+    .select("*")
+    .order("id", { ascending: true });
 
-  const initialCampaigns: Campaign[] = [
-    {
-      id: 1,
-      name: "Summer Fashion Collection",
-      description: "Promote our new summer collection with fashion influencers",
-      budget: 15000,
-      startDate: "2024-06-01",
-      endDate: "2024-07-31",
-      status: "active",
-      kols: [3],
-      expectedReach: 200000,
-      actualReach: 180000,
-      conversions: 450,
-      roi: 2.3,
-    },
-    {
-      id: 2,
-      name: "Tech Product Launch",
-      description: "Launch campaign for our new smartphone accessories",
-      budget: 20000,
-      startDate: "2024-07-15",
-      endDate: "2024-08-15",
-      status: "active",
-      kols: [2],
-      expectedReach: 150000,
-      actualReach: 120000,
-      conversions: 320,
-      roi: 1.8,
-    },
-    {
-      id: 3,
-      name: "Wellness Challenge",
-      description: "30-day wellness challenge with lifestyle influencers",
-      budget: 12000,
-      startDate: "2024-08-01",
-      endDate: "2024-08-31",
-      status: "draft",
-      kols: [1, 4],
-      expectedReach: 300000,
-    },
-  ]
+  if (kolsError) {
+    console.error("Error fetching KOLs:", kolsError);
+    return { initialKOLs: [], initialCampaigns: [], initialMessages: [] };
+  }
 
-  const initialMessages: ChatbotMessage[] = [
-    {
-      id: 1,
-      kolId: 1,
-      message:
-        "Hi Sarah! Just a friendly reminder that your content for the Wellness Challenge campaign is due tomorrow. Please let us know if you need any assistance!",
-      type: "reminder",
-      scheduledDate: "2024-07-28",
-      sent: true,
-      response: "Thanks for the reminder! I'll have it ready by end of day.",
-    },
-    {
-      id: 2,
-      kolId: 2,
-      message:
-        "Hello Mike! We'd love to get your feedback on the Tech Product Launch campaign performance. Could you share some insights?",
-      type: "follow-up",
-      scheduledDate: "2024-07-27",
-      sent: true,
-    },
-    {
-      id: 3,
-      kolId: 3,
-      message:
-        "Hi Emma! Here's the creative brief for our upcoming Fall Fashion campaign. Please review and let us know your thoughts.",
-      type: "brief",
-      scheduledDate: "2024-07-29",
-      sent: false,
-    },
-  ]
+  const { data: initialCampaigns, error: campaignsError } = await supabaseClient
+    .from("campaigns")
+    .select("*")
+    .order("id", { ascending: true });
+
+  if (campaignsError) {
+    console.error("Error fetching campaigns:", campaignsError);
+    return { initialKOLs: [], initialCampaigns: [], initialMessages: [] };
+  }
+
+  const { data: initialMessages, error: messagesError } = await supabaseClient
+    .from("chatbot_messages")
+    .select("*")
+    .order("id", { ascending: true });
+
+  if (messagesError) {
+    console.error("Error fetching messages:", messagesError);
+    return { initialKOLs: [], initialCampaigns: [], initialMessages: [] };
+  }
 
   return {
-    initialKOLs,
-    initialCampaigns,
-    initialMessages,
-  }
+    initialKOLs: initialKOLs as KOL[],
+    initialCampaigns: initialCampaigns as Campaign[],
+    initialMessages: initialMessages as ChatbotMessage[],
+  };
 }

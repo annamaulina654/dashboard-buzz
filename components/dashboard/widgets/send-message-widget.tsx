@@ -1,39 +1,72 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Send } from "lucide-react"
-import type { KOL, ChatbotMessage } from "@/types/dashboard"
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Send } from "lucide-react";
+import type { KOL, ChatbotMessage } from "@/types/dashboard";
 
 interface SendMessageWidgetProps {
-  kols: KOL[]
-  onSend: (kolId: number, message: string, type: ChatbotMessage["type"]) => Promise<void>
+  kols: KOL[];
+  onSend: (
+    kolId: number,
+    message: string,
+    type: ChatbotMessage["type"]
+  ) => Promise<void>;
+  onSendSuccess: () => void;
+  message: string;
+  messageType: ChatbotMessage["type"];
+  onMessageChange: (value: string) => void;
+  onTypeChange: (value: ChatbotMessage["type"]) => void;
+  selectedKOL: number | null;
+  onKOLChange: (value: number | null) => void;
 }
 
-export function SendMessageWidget({ kols, onSend }: SendMessageWidgetProps) {
-  const [selectedKOL, setSelectedKOL] = useState<number | null>(null)
-  const [message, setMessage] = useState("")
-  const [messageType, setMessageType] = useState<ChatbotMessage["type"]>("reminder")
-  const [isSending, setIsSending] = useState(false)
+export function SendMessageWidget({
+  kols,
+  onSend,
+  onSendSuccess,
+  message,
+  messageType,
+  onMessageChange,
+  onTypeChange,
+  selectedKOL,
+  onKOLChange,
+}: SendMessageWidgetProps) {
+  const [isSending, setIsSending] = useState(false);
 
   const handleSend = async () => {
     if (selectedKOL && message.trim()) {
-      setIsSending(true)
-      await onSend(selectedKOL, message, messageType)
-      setMessage("")
-      setSelectedKOL(null)
-      setIsSending(false)
+      setIsSending(true);
+      await onSend(selectedKOL, message, messageType);
+
+      onSendSuccess();
+
+      setIsSending(false);
     }
-  }
+  };
 
   return (
     <Card className="dark:bg-gray-800 dark:border-gray-700">
       <CardHeader>
-        <CardTitle className="dark:text-white text-lg md:text-xl">Send New Message</CardTitle>
+        <CardTitle className="dark:text-white text-lg md:text-xl">
+          Send New Message
+        </CardTitle>
         <CardDescription className="dark:text-gray-400 text-sm md:text-base">
           Directly communicate with your KOLs.
         </CardDescription>
@@ -42,7 +75,10 @@ export function SendMessageWidget({ kols, onSend }: SendMessageWidgetProps) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <Label className="dark:text-gray-300 mb-2">Select KOL</Label>
-            <Select value={selectedKOL?.toString() || ""} onValueChange={(value) => setSelectedKOL(Number(value))}>
+            <Select
+              value={selectedKOL?.toString() || ""}
+              onValueChange={(value) => onKOLChange(Number(value))}
+            >
               <SelectTrigger className="dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                 <SelectValue placeholder="Choose a KOL" />
               </SelectTrigger>
@@ -58,7 +94,7 @@ export function SendMessageWidget({ kols, onSend }: SendMessageWidgetProps) {
 
           <div>
             <Label className="dark:text-gray-300 mb-2">Message Type</Label>
-            <Select value={messageType} onValueChange={(value: ChatbotMessage["type"]) => setMessageType(value)}>
+            <Select value={messageType} onValueChange={onTypeChange}>
               <SelectTrigger className="dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                 <SelectValue />
               </SelectTrigger>
@@ -74,9 +110,9 @@ export function SendMessageWidget({ kols, onSend }: SendMessageWidgetProps) {
         <div>
           <Label className="dark:text-gray-300 mb-2">Message</Label>
           <Textarea
-            placeholder="Type your message..."
+            placeholder="Type your message or select a template..."
             value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            onChange={(e) => onMessageChange(e.target.value)}
             rows={4}
             className="dark:bg-gray-700 dark:border-gray-600 dark:text-white"
           />
@@ -92,5 +128,5 @@ export function SendMessageWidget({ kols, onSend }: SendMessageWidgetProps) {
         </Button>
       </CardContent>
     </Card>
-  )
+  );
 }

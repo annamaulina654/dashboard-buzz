@@ -1,15 +1,15 @@
 const companyInfo = {
   contact: {
-    founder: "Dayang Melati",
-    email: "dayang.dashboard@gmail.com",
+    founder: "Founder",
+    email: "buzz.dashboard@gmail.com",
     website: "https://dashboardbuzz.id",
   },
   details: {
-    stage: "Pre-Seed",
-    founded: "2019",
+    stage: "None",
+    founded: "2025",
     industry: "Advertising & Marketing",
   },
-}
+};
 
 export function Footer() {
   return (
@@ -24,7 +24,8 @@ export function Footer() {
               <span className="text-xl font-bold">Dashboard Buzz</span>
             </div>
             <p className="text-gray-400 mb-4 text-sm md:text-base">
-              Empowering brands through strategic nano and micro influencer marketing.
+              Empowering brands through strategic nano and micro influencer
+              marketing.
             </p>
           </div>
           <div className="text-center md:text-left">
@@ -45,9 +46,9 @@ export function Footer() {
           </div>
         </div>
         <div className="border-t border-gray-800 mt-6 md:mt-8 pt-6 md:pt-8 text-center text-gray-400 text-sm md:text-base">
-          <p>&copy; 2024 Dashboard Buzz. All rights reserved. Built for IDCamp 2024 Challenge.</p>
+          <p>&copy; 2025 Dashboard Buzz. All rights reserved.</p>
         </div>
       </div>
     </footer>
-  )
+  );
 }

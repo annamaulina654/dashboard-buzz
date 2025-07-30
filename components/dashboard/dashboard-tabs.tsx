@@ -1,34 +1,56 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { KOLManagementTab } from "./tabs/kol-management-tab"
-import { CampaignsTab } from "./tabs/campaigns-tab"
-import { AnalyticsTab } from "./tabs/analytics-tab"
-import { ChatbotTab } from "./tabs/chatbot-tab"
-import type { KOL, Campaign, ChatbotMessage } from "@/types/dashboard"
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { KOLManagementTab } from "./tabs/kol-management-tab";
+import { CampaignsTab } from "./tabs/campaigns-tab";
+import { AnalyticsTab } from "./tabs/analytics-tab";
+import { ChatbotTab } from "./tabs/chatbot-tab";
+import type {
+  KOL,
+  Campaign,
+  ChatbotMessage,
+  Template,
+} from "@/types/dashboard";
 
 interface DashboardTabsProps {
-  filteredKOLs: KOL[]
-  optimisticCampaigns: Campaign[]
-  chatbotMessages: ChatbotMessage[]
-  searchQuery: string
-  setSearchQuery: (query: string) => void
-  categoryFilter: string
-  setCategoryFilter: (filter: string) => void
-  selectedKOL: KOL | null
-  setSelectedKOL: (kol: KOL | null) => void
-  selectedCampaign: Campaign | null
-  setSelectedCampaign: (campaign: Campaign | null) => void
+  filteredKOLs: KOL[];
+  optimisticCampaigns: Campaign[];
+  chatbotMessages: ChatbotMessage[];
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+  categoryFilter: string;
+  setCategoryFilter: (filter: string) => void;
+  selectedKOL: KOL | null;
+  setSelectedKOL: (kol: KOL | null) => void;
+  selectedCampaign: Campaign | null;
+  setSelectedCampaign: (campaign: Campaign | null) => void;
   roiCalculation: {
-    budget: number
-    reach: number
-    conversionRate: number
-    result: number
-  }
-  setRoiCalculation: (calculation: any) => void
-  calculateROI: () => void
-  addKOL: (kol: Omit<KOL, "id">) => void
-  addCampaign: (campaign: Omit<Campaign, "id">) => void
-  sendChatbotMessage: (kolId: number, message: string, type: ChatbotMessage["type"]) => Promise<void>
-  optimisticKOLs: KOL[]
+    budget: number;
+    reach: number;
+    conversionRate: number;
+    result: number;
+  };
+  setRoiCalculation: (calculation: any) => void;
+  calculateROI: () => void;
+  addKOL: (kol: Omit<KOL, "id">) => void;
+  updateKOL: (id: number, data: Partial<Omit<KOL, "id">>) => Promise<void>;
+  deleteKOL: (id: number) => Promise<void>;
+  addCampaign: (campaign: Omit<Campaign, "id">) => void;
+  updateCampaign: (id: number, data: Partial<Omit<Campaign, "id">>) => void;
+  deleteCampaign: (id: number) => Promise<void>;
+  sendChatbotMessage: (
+    kolId: number,
+    message: string,
+    type: ChatbotMessage["type"]
+  ) => Promise<void>;
+  templates: Template[];
+  addTemplate: (data: Omit<Template, "id" | "created_at">) => void;
+  updateTemplate: (
+    id: number,
+    data: Partial<Omit<Template, "id" | "created_at">>
+  ) => void;
+  deleteTemplate: (id: number) => void;
+  optimisticKOLs: KOL[];
+  isLoading: boolean;
 }
 
 export function DashboardTabs(props: DashboardTabsProps) {
@@ -78,5 +100,5 @@ export function DashboardTabs(props: DashboardTabsProps) {
         <ChatbotTab {...props} />
       </TabsContent>
     </Tabs>
-  )
+  );
 }

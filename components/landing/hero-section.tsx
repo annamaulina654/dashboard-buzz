@@ -1,7 +1,7 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { ArrowRight } from "lucide-react"
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { ArrowRight } from "lucide-react";
 
 export function HeroSection() {
   return (
@@ -16,8 +16,9 @@ export function HeroSection() {
           Management Process
         </h1>
         <p className="text-lg md:text-xl text-gray-600 mb-6 md:mb-8 max-w-3xl mx-auto px-4">
-          Empower your brand with our comprehensive KOL management platform. Filter influencers effectively, calculate
-          ROI projections, and automate timeline reminders - all in one place.
+          Empower your brand with our comprehensive KOL management platform.
+          Filter influencers effectively, calculate ROI projections, and
+          automate timeline reminders - all in one place.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center px-4">
           <Link href="/register">
@@ -39,5 +40,5 @@ export function HeroSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
