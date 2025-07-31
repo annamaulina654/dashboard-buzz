@@ -123,7 +123,7 @@ export function CampaignsTab({
           open={!!selectedCampaign}
           onOpenChange={(isOpen) => !isOpen && setSelectedCampaign(null)}
         >
-          <DialogContent className="max-w-3xl dark:bg-gray-800 dark:border-gray-700 p-0">
+          <DialogContent className="max-w-3xl dark:bg-gray-800 dark:border-gray-700">
             <CampaignDetailView
               campaign={selectedCampaign}
               kols={optimisticKOLs}

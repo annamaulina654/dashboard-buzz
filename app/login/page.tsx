@@ -17,6 +17,7 @@ import { Label } from "@/components/ui/label";
 import { Eye, EyeOff, ArrowLeft } from "lucide-react";
 import { supabaseClient } from "@/lib/supabase-client";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -76,7 +77,9 @@ export default function LoginPage() {
       });
 
     if (supabaseError) {
-      setErrors({ form: supabaseError.message });
+            toast.error("Login Failed", {
+        description: supabaseError.message,
+      });
     } else {
       router.refresh();
       router.push("/dashboard");
@@ -172,12 +175,6 @@ export default function LoginPage() {
                   <p className="text-red-500 text-xs mt-1">{errors.password}</p>
                 )}
               </div>
-
-              {errors.form && (
-                <p className="text-red-500 text-sm text-center">
-                  {errors.form}
-                </p>
-              )}
 
               <Button
                 type="submit"

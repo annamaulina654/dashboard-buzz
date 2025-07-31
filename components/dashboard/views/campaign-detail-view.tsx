@@ -37,7 +37,7 @@ export function CampaignDetailView({
   };
 
   return (
-    <div className="space-y-6 p-1 sm:p-0">
+    <div className="space-y-6">
       <DialogHeader>
         <DialogTitle className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <span className="dark:text-white truncate">{campaign.name}</span>

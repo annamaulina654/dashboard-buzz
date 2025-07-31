@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Eye, EyeOff, ArrowLeft } from "lucide-react";
 import { supabaseClient } from "@/lib/supabase-client";
 import { cn } from "@/lib/utils";
@@ -300,20 +299,6 @@ export default function RegisterPage() {
                     {errors.confirmPassword}
                   </p>
                 )}
-              </div>
-
-              <div className="flex items-center space-x-2">
-                <Checkbox id="terms" />
-                <Label htmlFor="terms" className="text-sm text-gray-600">
-                  I agree to the{" "}
-                  <Link href="#" className="text-pink-600 hover:text-pink-700">
-                    Terms of Service
-                  </Link>{" "}
-                  and{" "}
-                  <Link href="#" className="text-pink-600 hover:text-pink-700">
-                    Privacy Policy
-                  </Link>
-                </Label>
               </div>
 
               <Button
