@@ -96,7 +96,13 @@ export function AddCampaignForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form
+      onSubmit={handleSubmit}
+      className={cn(
+        "space-y-4",
+        initialData ? "max-h-[80vh] overflow-y-auto p-6" : ""
+      )}
+    >
       <div>
         <Label htmlFor="campaignName" className="dark:text-gray-300 mb-2">
           Campaign Name
@@ -238,10 +244,10 @@ export function AddCampaignForm({
               <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
+          <PopoverContent className="w-[--radix-popover-trigger-width] p-0 z-[9999]">
             <Command>
               <CommandInput placeholder="Search KOLs..." />
-              <CommandList>
+              <CommandList className="max-h-48 overflow-y-auto">
                 <CommandEmpty>No KOL found.</CommandEmpty>
                 <CommandGroup>
                   {kols.map((kol) => (

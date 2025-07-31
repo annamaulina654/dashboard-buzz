@@ -17,6 +17,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Eye, EyeOff, ArrowLeft } from "lucide-react";
 import { supabaseClient } from "@/lib/supabase-client";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -32,7 +33,6 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const { id } = e.target;
@@ -100,9 +100,8 @@ export default function RegisterPage() {
 
     if (Object.keys(finalErrors).length === 0) {
       setLoading(true);
-      setSuccessMessage(null);
 
-      const { error } = await supabaseClient.auth.signUp({
+      const { data, error } = await supabaseClient.auth.signUp({
         email: formData.email,
         password: formData.password,
         options: {
@@ -115,11 +114,17 @@ export default function RegisterPage() {
       });
 
       if (error) {
-        setErrors({ form: error.message });
+        toast.error("Registration Failed", {
+          description: error.message,
+        });
+      } else if (data.user && data.user.identities?.length === 0) {
+        toast.warning("Email Already Exists", {
+          description: "Please use a different email address or log in.",
+        });
       } else {
-        setSuccessMessage(
-          "Registration successful! Please check your email to confirm your account."
-        );
+        toast.success("Registration Successful!", {
+          description: "Please check your email to confirm your account.",
+        });
       }
       setLoading(false);
     }
@@ -310,17 +315,6 @@ export default function RegisterPage() {
                   </Link>
                 </Label>
               </div>
-
-              {errors.form && (
-                <p className="text-red-500 text-sm text-center">
-                  {errors.form}
-                </p>
-              )}
-              {successMessage && (
-                <p className="text-green-500 text-sm text-center">
-                  {successMessage}
-                </p>
-              )}
 
               <Button
                 type="submit"
